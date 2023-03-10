@@ -1,0 +1,45 @@
+# crear volumen
+# sudo docker volume create pgadmin
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f pgadmin.yml up -d
+
+version: "3.9"
+
+networks:
+    redlocal:
+        external: true
+
+# Indicar que el volumen es externo
+volumes:
+  pgadmin:    
+    external: true          
+
+
+services:
+  # db:
+  #   image: postgres
+  #   container_name: local_pgdb
+  #   restart: always
+  #   ports:
+  #     - "54320:5432"
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: admin
+  #   volumes:
+  #     - local_pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    networks:
+      redlocal:
+        ipv4_address: 10.72.0.7    
+    environment:
+      PGADMIN_DEFAULT_EMAIL: lagaguate@yahoo.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+

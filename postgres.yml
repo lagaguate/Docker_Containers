@@ -1,0 +1,48 @@
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f postgres.yml up -d
+
+# borrar contenedor
+# sudo docker container rm postgres
+
+# borrar volumes sin contenedores
+# sudo docker volume prune
+
+# revisar contenedor
+# sudo docker container inspect postgres 
+
+# Define la version yaml
+version: '3.9'
+
+#Indica que red utlizar ojo con el nombre -- redlocal --
+networks:
+    redlocal:
+        external: true
+
+volumes:
+  postgres_data:    
+    external: true    
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: MasterHunter*1972
+      PGDATA: /data/postgres
+    volumes:
+       - postgres_data:/data/postgres
+       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      redlocal:
+        ipv4_address: 10.72.0.5  
+    # Posible valores
+    # no, on-failure[:max-retries], always, unless-stopped
+    #restart: no
+
+
+    
+
+
+
