@@ -1,0 +1,35 @@
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f mariadb.yml up -d
+#### uso con Docker Desktop
+# 
+
+version: '3.9'
+#Indica que red utlizar ojo con el nombre -- redlocal --
+networks:
+    redlinux:
+        external: true
+#        ipam:
+#          config:
+#            - subnet: 10.75.0.0/16    
+
+volumes:
+  mariadb:    
+    external: true 
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: MasterHunter*1972
+      #MYSQL_DATABASE: mydatabase
+      MYSQL_USER: test
+      MYSQL_PASSWORD: MasterHunter*1972
+    volumes:
+      - mariadb:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      redlinux:
+        ipv4_address: 10.75.0.3
+    hostname: server_mariadb    
