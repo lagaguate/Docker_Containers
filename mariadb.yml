@@ -6,11 +6,8 @@
 version: '3.9'
 #Indica que red utlizar ojo con el nombre -- redlocal --
 networks:
-    redlinux:
+    redlocal:
         external: true
-#        ipam:
-#          config:
-#            - subnet: 10.75.0.0/16    
 
 volumes:
   mariadb:    
@@ -19,7 +16,7 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb
+    image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: MasterHunter*1972
       #MYSQL_DATABASE: mydatabase
@@ -30,6 +27,6 @@ services:
     ports:
       - "3306:3306"
     networks:
-      redlinux:
-        ipv4_address: 10.75.0.3
+      redlocal:
+        ipv4_address: 10.72.0.3
     hostname: server_mariadb    
