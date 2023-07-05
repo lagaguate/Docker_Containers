@@ -1,19 +1,43 @@
-# Exportar una imagen archivo TAR
-- sudo docker save -o mariadb.tar mariadb
-# subir una imagen
-- docker load < mariadb.tar
-# cambiar el dueño del archivo en Linux
-- sudo chown $USER:$USER mariadb.tar
+Contenedores Docker
+========================
 
-# Parametrso creacion de Docker Desktop
-## Volumen
+# Introdución
 
-mariadb: /var/lib/mysql
+Vamos creado archivos YAML para crear contenedores en Docker, hasta el momento tenemos contenedores para:
 
-## Enviroment variables
+1. MariaDB
+2. Postgresql
+3. Pgadmin
+4. MongoDB
 
-networks: redlocal
-ipv4_address: 10.72.0.3
-MYSQL_ROOT_PASSWORD = MasterHunter*1972
+Vamos a ejecutar los pasos para MariaDB, pero deberia funcionar perfectamente con los otros archivos YAML creados.
 
-docker run --net redlocal --ip 10.72.0.3 -d mariadb -n mariadb
+##  Exportar una imagen archivo TAR
+` sudo docker save -o mariadb.tar mariadb`
+## Subir una imagen
+`docker load < mariadb.tar`
+## cambiar el dueño del archivo en Linux
+`sudo chown $USER:$USER mariadb.tar`
+## Docker-Compose
+
+- [ ] Ejecutar el comando docker-compose para procesar un archivo YAML
+
+`docker-compose –f <nombre de archivo YAML> up -d`
+
+` sudo docker-compose -f postgres.yml up -d`
+
+- [ ]  borrar contenedor
+` sudo docker container rm postgres`
+
+- [ ]  Borrar volumes sin contenedores
+` sudo docker volume prune`
+
+- [ ]   Revisar contenedor
+` sudo docker container inspect postgres `
+
+## Estructura de un archivo YAML
+- [ ]
+version: '3.9'
+
+#Indica que red utlizar ojo con el nombre -- redlocal --
+
