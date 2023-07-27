@@ -1,0 +1,81 @@
+# Crear primero el volumen antes de ejecutar yaml
+# $>sudo docker volume create oracle-xe
+# $>sudo docker volume create oracle-ords        
+
+# Una vez creado el volumen, ejecuta docker-compose asi:
+# sudo docker-compose -f oracle-xe.yml up -d
+
+
+version: '3.9'
+
+networks:
+    redlocal:
+        external: true
+
+volumes:
+  oracle-xe:    
+    external: true    
+services:
+  oracle-xe:
+    restart: no
+    container_name: oracle-xe
+    image: container-registry.oracle.com/database/express:latest
+    ports:
+        - 1521:1521 # BD instancia
+        - 5500:5500 # for Enterprise Manager
+        - 8080:8080 # http-proxy
+        - 22:22 # ssh 
+    environment:
+        ORACLE_SID: XE
+        ORACLE_PDB: XEPDB1
+        ORACLE_ALLOW_REMOTE: true 
+        ORACLE_ENABLE_XDB: true
+        ENABLE_TCPS: true
+        ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+        - oracle-xe:/opt/oracle/oradata
+    hostname: oracle-xe-dev
+
+    networks:
+          redlocal:
+            ipv4_address: 10.72.0.11
+
+
+#######################################
+# Documentacion
+#######################################
+# Ejecutar este comando para resetear password de Sys y System, desde el equipo real
+# $>sudo docker exec oracle-xe resetPassword MasterHunter
+
+# ingrese al contenedor
+# sudo docker exec -i -t oracle-xe /bin/bash 
+# Ingresar a Sqlplus dentro del docker
+# Luego ingresa a sqlplus sys as SYSDBA
+# Ejecutar esto para cambiar el password
+# Sql> Alter user system identified by MasterHunter; 
+# Sql> Alter user sys identified by MasterHunter; 
+
+# Crear el usuario
+# Sql> create user lagasystem identified by MasterHunter;
+
+# Sql> grant connect, resource to lagasystem;
+# Sql> grant unlimited tablespace to lagasystem;
+# Sql> grant create synonym, create public synonym to lagasystem;
+# Sql> grant create view to lagasystem;
+
+# Referencia documentacion 
+# https://blog.devgenius.io/running-oracle-database-in-docker-containers-661b6f6e1d71
+
+#Paso cero
+# alter session set container=XEPDB1;
+
+#Prime paso se crea un Tablespace para APEX
+#
+#CREATE TABLESPACE APEX 
+#    DATAFILE 
+#        '/opt/oracle/oradata/XE/XEPDB1/APEX_DATA01.DBF' SIZE 1073741824 REUSE AUTOEXTEND ON 
+#    
+#    ONLINE 
+#    SEGMENT SPACE MANAGEMENT AUTO;
+
+# Paso 2, creacion de usuario

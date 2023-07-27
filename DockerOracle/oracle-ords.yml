@@ -1,0 +1,40 @@
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f oracle-ords.yml up -d
+
+volumes:
+  oracle-ords:    
+    external: true           
+
+networks:
+    redlocal:
+        external: true      
+
+version: '3'
+services:
+  ords:
+    container_name: oracle-ords
+    restart: no
+    image: container-registry.oracle.com/database/ords:latest
+         
+    volumes:
+      - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
+      - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
+    ports:
+        - 8181:8181
+        - 8880:8080
+        - 8443:8443
+    hostname: oracle-ords-dev
+    networks:
+        redlocal:
+          ipv4_address: 10.72.0.13
+
+# ingrese al contenedor
+# sudo docker exec -i -t oracle-ords /bin/bash        
+
+#
+# CONN_STRING="sys as sysdba/MasterHunter@10.72.0.11:1521/XEPDB1"
+
+# http://10.72.0.13:8181/ords/apex 
+
+
+
