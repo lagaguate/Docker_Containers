@@ -23,9 +23,9 @@ En el proyecto tengo 3 archivos docker-compose yml, realmente hay varios, pero v
  
  Descripción de los archivos  docker-compose:
  
- - [] **oracle-xe-ords.yml**: Permite instalar dos contedores simultamente, Oracle XE y Oracle ORDS.
+ - [ ] **oracle-xe-ords.yml**: Permite instalar dos contedores simultamente, Oracle XE y Oracle ORDS.
 
- - []  **oracle-xe.yml**:  Instalar solo Oracle XE
+ - [ ]  **oracle-xe.yml**:  Instalar solo Oracle XE
  - [ ] **oracle-ords.yml**: Instalar solo Oracle ORDS
 
 Para ejecutar cualquier archivo compose, solo debe seguir el formato, depende como estén configurados los privilegios, posiblemente debas anteponer el comando *sudo*.
@@ -108,11 +108,11 @@ También hacer ping y ver si responde la BD
 Una vez instalado **oracle xe**, debemos preparar algunos detalles en la BD
 
 ### Configurar usuarios oracle xe
-- [] Ejecutar este comando para resetear password de *Sys* y *System*, desde el equipo físico
+- [ ] Ejecutar este comando para resetear password de *Sys* y *System*, desde el equipo físico
 ```
 sudo docker exec oracle-xe resetPassword MasterHunter
 ```
--[] O si lo prefieres también puedes hacer lo de manera
+-[ ] O si lo prefieres también puedes hacer lo de manera
 * ingrese al contenedor
 ```
  sudo docker exec -i -t oracle-xe /bin/bash 
@@ -263,7 +263,7 @@ En la linea de comando darle permisos, ubicar el archivo donde lo descargo
 
 Posiblemente haga falta detalles en el readme.md, espero seguir mejorando esta redacción a futuro.
 
-- [] Referencia documentación 
+- [ ] Referencia documentación 
  https://blog.devgenius.io/running-oracle-database-in-docker-containers-661b6f6e1d71
  https://tm-apex.hashnode.dev/running-apex-in-docker-container
 
