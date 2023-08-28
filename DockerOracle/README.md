@@ -112,7 +112,7 @@ Una vez instalado **oracle xe**, debemos preparar algunos detalles en la BD
 ```
 sudo docker exec oracle-xe resetPassword MasterHunter
 ```
--[ ] O si lo prefieres también puedes hacer lo de manera
+- [ ] O si lo prefieres también puedes hacer lo de manera
 * ingrese al contenedor
 ```
  sudo docker exec -i -t oracle-xe /bin/bash 
