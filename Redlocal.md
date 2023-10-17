@@ -16,4 +16,7 @@ docker network create \
   # Postgres -- 10.72.0.5 
   # pgadmin --> 10.72.0.7
   # mongodb --> 10.72.0.9
-  # Oracle --> 10.72.0.11
+  # Oracle xe --> 10.72.0.11
+  # Oracle orcl --> 10.72.0.13
+  # JasperReports --> 10.72.0.15
+  # JR_Mariadb --> 10.72.0.17

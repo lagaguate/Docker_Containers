@@ -1,0 +1,66 @@
+# Copyright VMware, Inc.
+# SPDX-License-Identifier: APACHE-2.0
+
+# Acceder a jasperserver
+# http://10.72.0.15:8011/jasperserver/ 
+
+
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f JasperReports.yml up -d
+
+version: '2'
+
+networks:
+    redlocal:
+        external: true
+
+services:
+  mariadb:
+    container_name: mariadb_JR
+    image: docker.io/bitnami/mariadb:10.11
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_jasperreports
+      - MARIADB_DATABASE=bitnami_jasperreports
+    networks:
+      redlocal:
+        ipv4_address: 10.72.0.17
+    hostname: server_MariaDB_JR    
+
+  jasperreports:
+    container_name: jasperreports
+    image: docker.io/bitnami/jasperreports:latest
+    ports:
+      - '8011:8080'
+    volumes:
+      - 'jasperreports_data:/bitnami/jasperreports'
+    depends_on:
+      - mariadb
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - JASPERREPORTS_DATABASE_HOST=mariadb
+      - JASPERREPORTS_DATABASE_PORT_NUMBER=3306
+      - JASPERREPORTS_DATABASE_USER=bn_jasperreports
+      - JASPERREPORTS_DATABASE_NAME=bitnami_jasperreports
+    networks:
+      redlocal:
+        ipv4_address: 10.72.0.15
+    hostname: server_jasperreports  
+volumes:
+  mariadb_data:
+    driver: local
+  jasperreports_data:
+    driver: local
+
+#################################################################################
+# Adicionar parametros si es necesario.
+#
+# JASPERREPORTS_USERNAME: JasperReports application username. Default: jasperadmin
+# JASPERREPORTS_PASSWORD: JasperReports application password. Default: bitnami
+# JASPERREPORTS_EMAIL: JasperReports application email. Default: user@example.com
+# JASPERREPORTS_SKIP_BOOTSTRAP: Whether to skip performing the initial bootstrapping for the application. This is necessary in case you use a database that already has JasperReports data. Default: no
+#################################################################################

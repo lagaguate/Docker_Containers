@@ -165,6 +165,8 @@ grant create view to lagasystem;
 ```
 alter user pdbadmin default tablespace apex;
 alter user pdbadmin identified by Welcome$2023;
+alter user pdbadmin ACCOUNT UNLOCK;
+
 ```
 
 ## Oracle ORDS + Docker Compose
@@ -179,8 +181,13 @@ Pasos:
 
 `echo 'CONN_STRING=sys/<1230123>@<serverdatabase>:1521/XEPDB1'>conn_string.txt`
 
+`echo 'CONN_STRING="lagasystem/MasterHunter@10.72.0.11:1521/XEPDB1"'>conn_string.txt`
 
-`CONN_STRING="lagasystem/MasterHunter@10.72.0.11:1521/XEPDB1"`
+```
+CONN_STRING="lagasystem as sysdba/MasterHunter@10.72.0.11:1521/XEPDB1"
+CONN_STRING="sys as sysdba/MasterHunter@10.72.0.11:1521/XEPDB1"
+
+```
 
  **Datos de conexión**
 

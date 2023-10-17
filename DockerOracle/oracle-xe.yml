@@ -3,7 +3,12 @@
 # $>sudo docker volume create oracle-ords        
 
 # Una vez creado el volumen, ejecuta docker-compose asi:
+# Crear un docker e iniciar
 # sudo docker-compose -f oracle-xe.yml up -d
+# Modificar
+# docker-compose -f oracle-xe.yml stop
+# docker-compose -f oracle-xe.yml rm
+# docker-compose -f oracle-xe.yml start
 
 
 version: '3.9'
@@ -33,9 +38,10 @@ services:
         ENABLE_TCPS: true
         ORACLE_CHARACTERSET: AL32UTF8
     volumes:
-      - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
-      - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
-      - /home/lgutie/Dev/Containers/DockerOracle/timezone:/etc/timezone
+ #     - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
+ #     - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
     hostname: oracle-xe-dev
 
     networks:

@@ -1,1 +1,0 @@
-CONN_STRING="lagasystem/MasterHunter@10.72.0.11:1521/XEPDB1"

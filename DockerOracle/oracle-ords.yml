@@ -15,10 +15,21 @@ services:
     container_name: oracle-ords
     restart: no
     image: container-registry.oracle.com/database/ords:latest
+    environment:
+            admin-user: admin
+            db-user: ORDS_PUBLIC_USER2
+            gateway-user: ORDS_PLSQL_GATEWAY2 
+            wallet: /opt/ords-config/Wallet_Autonomous.zip
+            wallet-service-name: db202301101106_low
+            feature-sdw: true 
+            feature-db-api: true
+            feature-rest-enabled-sql: true  
          
     volumes:
       - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
       - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
     ports:
         - 8181:8181
         - 8880:8080

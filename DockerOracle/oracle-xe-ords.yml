@@ -38,6 +38,7 @@ services:
         ORACLE_CHARACTERSET: AL32UTF8
     volumes:
         - oracle-xe:/opt/oracle/oradata
+        - /home/lgutie/Dev/Containers/DockerOracle/timezone:/etc/timezone
     hostname: oracle-xe-dev
 
     networks:
@@ -63,7 +64,7 @@ services:
     volumes:
       - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
       - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
-      - /home/lgutie/Dev/Containers/DockerOracle/timezone:/etc/timezone
+      
     ports:
         - 8282:8181
     hostname: oracle-ords-dev
