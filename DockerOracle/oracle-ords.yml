@@ -38,6 +38,7 @@ services:
     networks:
         redlocal:
           ipv4_address: 10.72.0.13
+    hostname: server_oracle_ords
 
 # ingrese al contenedor
 # sudo docker exec -i -t oracle-ords /bin/bash        

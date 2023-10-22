@@ -25,6 +25,7 @@ services:
     networks:
       redlocal:
         ipv4_address: 10.72.0.7
+    hostname: server_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: lagaguate@yahoo.com
       PGADMIN_DEFAULT_PASSWORD: admin

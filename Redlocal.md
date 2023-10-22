@@ -7,9 +7,18 @@ docker network create --subnet=10.72.1.0/16 redlinux
 docker network create \
   --driver=bridge \
   --subnet=10.72.0.0/24 \
-  --gateway=10.72.0.1 \
+  --gateway=10.72.0.2 \
   --aux-address="my-router=10.72.0.254"  \
+  redlocalx
+
+docker network create \
+  --driver=bridge \
+  --subnet=10.72.0.0/24 \
+  --gateway=10.72.0.2 \
   redlocal
+  
+  
+
 
   # Ip de la redlocal de containers
   # MariaDB --> 10.72.0.3

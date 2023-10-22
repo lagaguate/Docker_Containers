@@ -37,9 +37,8 @@ services:
     networks:
       redlocal:
         ipv4_address: 10.72.0.5  
-    # Posible valores
-    # no, on-failure[:max-retries], always, unless-stopped
-    #restart: no
+    hostname: server_postgres
+ 
 
 
     
