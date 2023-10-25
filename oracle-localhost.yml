@@ -1,0 +1,52 @@
+# Guia
+# https://tm-apex.hashnode.dev/docker-compose-for-oracle-apex
+# https://tm-apex.hashnode.dev/running-apex-in-docker-container
+
+# docker-compose -f oracle.yml up -d
+version: '3.9'
+
+services:
+  oracledb:
+    container_name: oracle-xe
+    restart: no
+    image: container-registry.oracle.com/database/express:latest
+    ports:
+    - 1521:1521
+    environment:
+    - ORACLE_PWD=MasterHunter
+    volumes:
+    - oracledev:/opt/oracle/oradata
+    hostname: oracle_xe
+
+  ords:
+    container_name: oracle-ords
+    restart: no
+    depends_on:
+     - oracledb
+    volumes:
+    - /home/lgutie/Dev/Containers/OracleSetting/ords_secrets/:/opt/oracle/variables
+    ports:
+    - 8282:8181
+    image: container-registry.oracle.com/database/ords:latest
+    hostname: oracle_ords    
+
+volumes:
+  oracledev:
+    name: oracledb
+    external: false  
+
+#
+# Use the following credentials to connect to the Internal Workspace:
+#
+# Workspace: Internal
+# 
+# Username: Admin
+#
+# Password: Welcome_1
+    
+
+#
+# Link
+#
+# http://localhost:8282/ords/r/apex/workspace-sign-in/oracle-apex-sign-in?session=18249590867575
+#

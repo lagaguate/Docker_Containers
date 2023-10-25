@@ -3,10 +3,11 @@
 <properties>
 <comment>Saved on Wed Jul 26 23:59:28 UTC 2023</comment>
 <entry key="db.connectionType">basic</entry>
-<entry key="db.hostname">10.72.0.11</entry>
+<entry key="db.hostname">server_oracle_xe</entry>
 <entry key="db.port">1521</entry>
 <entry key="db.servicename">XEPDB1</entry>
-<entry key="db.username">ORDS_PUBLIC_USER</entry>
+<entry key="db.username">APEX_PUBLIC_USER</entry>
+<entry key="db.password">MasterHunter</entry>
 <entry key="feature.sdw">true</entry>
 <entry key="jdbc.InitialLimit">10</entry>
 <entry key="jdbc.MaxLimit">30</entry>

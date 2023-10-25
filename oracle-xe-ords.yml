@@ -1,0 +1,67 @@
+# crear contenedor a partir de un archivo yaml
+# sudo docker-compose -f oracle-xe-ords.yml up -d
+
+version: '3.9'
+
+# Crear primero el volumen antes de ejecutar yaml
+# $>sudo docker volume create oracle-xe
+# $>sudo docker volume create oracle-ords
+volumes:
+  oracle-xe:    
+    external: true    
+  oracle-ords:    
+    external: true           
+
+services:
+  oracle-xe:
+    restart: no
+    container_name: oracle-xe
+    image: container-registry.oracle.com/database/express:latest
+    ports:
+        - 1521:1521 # BD instancia
+        - 5500:5500 # for Enterprise Manager
+        - 8080:8080 # http-proxy
+        - 22:22 # ssh 
+    environment:
+        ORACLE_SID: XE
+        ORACLE_PWD: MasterHunter
+        ORACLE_PDB: XEPDB1
+        ORACLE_ALLOW_REMOTE: true 
+        ORACLE_DISABLE_ASYNCH_IO: true
+        ORACLE_ENABLE_XDB: true
+        ORACLE_PASSWORD_VERIFY: true
+        ENABLE_TCPS: true
+        ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+        - oracle-xe:/opt/oracle/oradata
+        - /home/lgutie/Dev/Containers/DockerOracle/timezone:/etc/timezone
+    hostname: oracle-xe-dev
+
+    
+  ords:
+    container_name: oracle-ords
+    restart: no
+    image: container-registry.oracle.com/database/ords:latest
+    depends_on:
+      - oracle-xe
+    environment:
+            admin-user: admin
+            db-user: ORDS_PUBLIC_USER2
+            gateway-user: ORDS_PLSQL_GATEWAY2 
+            wallet: /opt/ords-config/Wallet_Autonomous.zip
+            wallet-service-name: db202301101106_low
+            feature-sdw: true 
+            feature-db-api: true
+            feature-rest-enabled-sql: true    
+    volumes:
+      - /home/lgutie/Dev/Containers/DockerOracle/ords_secrets/:/opt/oracle/variables
+      - /home/lgutie/Dev/Containers/DockerOracle/ords_config/:/etc/ords/config/
+      
+    ports:
+        - 8282:8181
+    hostname: oracle-ords-dev
+    
+
+
+
+

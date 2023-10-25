@@ -1,0 +1,40 @@
+# crear contenedor a partir de un archivo yaml
+# sudo docker volume create postgres_data
+# sudo docker-compose -f postgres-localhost.yml up -d
+
+# borrar contenedor
+# sudo docker container rm postgres
+
+# borrar volumes sin contenedores
+# sudo docker volume prune
+
+# revisar contenedor
+# sudo docker container inspect postgres 
+
+# Define la version yaml
+version: '3.9'
+
+volumes:
+  postgres_data:    
+    external: true    
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: MasterHunter*1972
+      PGDATA: /data/postgres
+    volumes:
+       - postgres_data:/data/postgres
+       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    hostname: server_postgres
+ 
+
+
+    
+
+
+

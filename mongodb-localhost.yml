@@ -1,0 +1,26 @@
+# Crear volumen 
+# sudo docker volume create 
+#
+
+# crear contenedor a partir de un archivo yaml
+# docker-compose -f mongodb-localhost.yml up -d
+#### uso con Docker Desktop
+# 
+
+version: '3.9'
+#Indica que red utlizar ojo con el nombre -- redlocal --
+
+volumes:
+  mongodb:    
+    external: true 
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    volumes:
+      - mongodb:/data/db
+      - mongodb:/data/configdb
+    ports:
+      - "27017:27017"
+    hostname: server_mongodb
