@@ -18,9 +18,36 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo:latest
+    restart: no
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      
     volumes:
       - mongodb:/data/db
       - mongodb:/data/configdb
     ports:
       - "27017:27017"
-    hostname: server_mongodb
+    hostname: servermongodb
+
+  mongo-express:
+    container_name: mongoexpress
+    image: mongo-express:latest
+    restart: no
+    environment:
+      ME_CONFIG_MONGODB_SERVER: servermongodb
+      ME_CONFIG_MONGODB_PORT: 27017 
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@servermongodb:27017/
+      # mongodb://root:example@servermongodb:27017/
+    ports:
+      - 8381:8081
+    depends_on:
+      - mongodb  
+    hostname: mongoexpress  
+    
+
+#Now, access http://localhost:8381 using a browser. (usuaria: admin, password: pass)
+
