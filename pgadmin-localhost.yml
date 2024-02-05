@@ -8,7 +8,7 @@ version: "3.9"
 
 # Indicar que el volumen es externo
 volumes:
-  pgadmin:    
+  pgadmin4:    
     external: true          
 
 
@@ -24,6 +24,6 @@ services:
       PGADMIN_DEFAULT_EMAIL: lagaguate@yahoo.com
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
-      - pgadmin:/var/lib/pgadmin
+      - pgadmin4:/var/lib/pgadmin
 
 

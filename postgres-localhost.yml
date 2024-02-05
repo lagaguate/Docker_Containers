@@ -23,6 +23,7 @@ services:
     container_name: postgres
     image: postgres:latest
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: MasterHunter*1972
       PGDATA: /data/postgres
     volumes:
