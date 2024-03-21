@@ -27,7 +27,7 @@ services:
       - pgadmin4:/var/lib/pgadmin
 
 
-# Configurar conexion en Pgamin
+# Configurar conexion en Pgadmin
 # Paso 1. Server postgre, abrir propiedad
 # paso 2. General, Name: server_postgres
 # paso 3. Conexion, Host name / Address:  server_postgres
