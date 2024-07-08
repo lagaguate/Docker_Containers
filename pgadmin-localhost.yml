@@ -4,7 +4,7 @@
 # docker-compose -f pgadmin-localhost.yml up -d
 
 # http://localhost:5050/login?next=%2F
-version: "3.9"
+#version: "3.9"
 
 # Indicar que el volumen es externo
 volumes:
@@ -14,7 +14,7 @@ volumes:
 
 services:
   pgadmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:8.7
     container_name: pgadmin4
     #restart: no
     ports:
