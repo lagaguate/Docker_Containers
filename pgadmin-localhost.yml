@@ -7,14 +7,15 @@
 #version: "3.9"
 
 # Indicar que el volumen es externo
+version: '3.8'
 volumes:
-  pgadmin4:    
-    external: true          
+  pgadmin_data:    
+#    external: true          
 
 
 services:
   pgadmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:9.4
     container_name: pgadmin
     #restart: no
     ports:
@@ -23,8 +24,11 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: lagaguate@yahoo.com
       PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
     volumes:
-      - pgadmin4:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
+      - ./backups:/backups
 
 
 # Configurar conexion en Pgadmin
