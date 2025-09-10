@@ -1,0 +1,16 @@
+# crear volumen
+# sudo docker volume create pgadmin
+# crear contenedor a partir de un archivo yaml
+# docker-compose -f redis-localhost.yml up -d
+version: '3.8'
+services:
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:
+    driver: local
