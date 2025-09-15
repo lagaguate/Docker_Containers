@@ -1,14 +1,14 @@
 # Lista redes
 docker network list
 # Crear una redlocal
-docker network create --subnet=10.72.1.0/16 redlinux
+docker network create --subnet=10.72.0.0/16 reddocker
 
 # usar esta instruccion para los container
 docker network create \
   --driver=bridge \
   --subnet=10.72.0.0/24 \
   --gateway=10.72.0.2 \
-    redlocal
+    reddocker
 
 # usar esta instruccion para los container con macvlan
 # 192.168.65.0/24
@@ -18,7 +18,7 @@ docker network create \
   --subnet=10.72.0.0/24 \
   --gateway=10.72.0.2 \
   --opt parent=eth0  \
-    redlocal    
+    reddocker    
 
 # Crear red local agregar sudo si es necesario
 docker network create \
@@ -31,18 +31,22 @@ docker network create \
   --opt com.docker.network.bridge.host_binding_ipv4=0.0.0.0 \
   --opt com.docker.network.bridge.name=redlocal \
   --opt com.docker.network.driver.mtu=1500 \
-  redlocal
+  reddocker
 
-
-
+# Conectar los contenedores a la reddocker
+docker network connect --ip 10.72.0.10 reddocker docker_containers-redis-1
+docker network connect --ip 10.72.0.15 reddocker postgres
+docker network connect --ip 10.72.0.16 reddocker pgadmin
   
 
 
   # Ip de la redlocal de containers
-  # MariaDB --> 10.72.0.3
-  # Postgres -- 10.72.0.5 
-  # pgadmin --> 10.72.0.7
-  # mongodb --> 10.72.0.9
+  # Redis --> 10.72.0.10 
+  # Postgres -- 10.72.0.15 
+  # pgadmin --> 10.72.0.16
+
+  # MariaDB --> 10.72.0.x
+  # mongodb --> 10.72.0.x
   # Oracle xe --> 10.72.0.11
   # Oracle orcl --> 10.72.0.13
   # JasperReports --> 10.72.0.15
