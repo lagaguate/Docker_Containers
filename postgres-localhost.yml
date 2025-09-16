@@ -12,11 +12,13 @@
 # sudo docker container inspect postgres 
 
 # Define la version yaml
-version: '3.9'
+version: '3.8'
 
 volumes:
-  postgres_data:    
-    external: true    
+  postgres_data:
+    external: true
+  postgres_backups: # <--- Nuevo volumen para backups
+    external: true
 
 services:
   postgres:
@@ -25,17 +27,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: MasterHunter*1972
-      PGDATA: /data/postgres
+      PGDATA: /var/lib/postgresql/data
     volumes:
-       - postgres_data:/data/postgres
-       - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backups:/backups  # <--- Montar el volumen de backups
     ports:
       - "5432:5432"
     hostname: server_postgres
+  
  
-
-
-    
-
-
-

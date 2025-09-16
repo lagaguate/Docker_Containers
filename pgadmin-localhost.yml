@@ -15,7 +15,7 @@ volumes:
 
 services:
   pgadmin:
-    image: dpage/pgadmin4:9.7
+    image: dpage/pgadmin4:9.8
     container_name: pgadmin
     #restart: no
     ports:
